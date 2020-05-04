@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function Card({ id, selectCard, found, imageIndex, selectable }) {
+function Card({ id, selectCard, found, backData, selectable }) {
 	const [flipped, flip] = useState(false);
 	const [isFound, setFound] = useState(false);
 
@@ -30,7 +30,11 @@ function Card({ id, selectCard, found, imageIndex, selectable }) {
 						  }
 						: null
 				}>
-				<img src={`img/cars/${imageIndex}.png`} alt="card img" />
+				{backData.includes("https") ? (
+					<img src={backData} alt="card img" className="card-back back-img" />
+				) : (
+					<p className="card-back back-text">{backData}</p>
+				)}
 			</div>
 		</>
 	);

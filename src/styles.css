@@ -37,16 +37,30 @@ body {
 	width: 5em;
 	height: 2em;
 	font-size: 5em;
+	background-color: #250001;
+	color: #f3f3f3;
+}
+
+.start-button:hover {
+	background-color: #6b0f1a;
+	font-size: 5.2em;
 }
 
 .timer {
 	position: absolute;
 	top: 0;
-	left: 50px;
 }
 
 .timer p {
-	font-size: 2em;
+	font-size: 2.5em;
+	text-align: center;
+
+	color: #f3f3f3;
+	background-color: #250001;
+
+	padding: 15px;
+
+	border-radius: 20px;
 }
 
 .cards {
@@ -105,7 +119,7 @@ body {
 	cursor: pointer;
 }
 
-.card img {
+.card .card-back {
 	width: 150px;
 }
 
@@ -117,13 +131,25 @@ body {
 	transform: scale(-1, 1);
 }
 
-.card img {
+.back-text {
+	transform: scale(-1, 1);
+	color: #f3f3f3;
+	font-size: 2.3em;
+	text-align: center;
+}
+
+.back-img {
+	padding: 10px;
+	border-radius: 20px;
+}
+
+.card .card-back {
 	opacity: 0;
 	transition-delay: 0.1s;
 	transition-duration: 0;
 }
 
-.card.flipped img {
+.card.flipped .card-back {
 	opacity: 1;
 }
 
@@ -146,4 +172,13 @@ body {
 .card.found:hover,
 .card.flipped:hover {
 	box-shadow: 0 0 0 2px #250001;
+}
+
+.api-link {
+	position: absolute;
+	bottom: 5px;
+	left: 5px;
+
+	text-decoration: underline;
+	color: #6b0f1a;
 }
