@@ -1,0 +1,130 @@
+/* 
+yellow #fcba04
+claret red #250001
+dark red #6b0f1a
+red #8f250c
+gray-white #f3f3f3
+*/
+
+body {
+	background-color: #fcba04;
+}
+
+.container {
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.cards {
+	width: 100vw;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.cards.finished::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: inherit;
+	height: 100vh;
+	background-color: rgba(0, 0, 0, 0.276);
+}
+
+.finish-message {
+	position: absolute;
+	width: 300px;
+	height: 300px;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	background-color: #f3f3f3;
+	border-radius: 20px;
+	box-shadow: 0 0 20px black;
+	z-index: 1000;
+}
+
+.finish-message button {
+	background-color: #f3f3f3;
+	box-shadow: 0 0 0 2px black;
+	width: 100px;
+	height: 30px;
+	border-style: none;
+	border-radius: 15px;
+
+	transition-duration: 0.2s;
+	cursor: pointer;
+}
+
+.finish-message button:hover {
+	background-color: #bfbfbf;
+}
+
+.row {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.card {
+	height: 150px;
+	width: 150px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	background-color: #6b0f1a;
+	margin: 15px;
+	border-radius: 20px;
+	box-shadow: 0 0 0 2px #250001;
+	transition: 0.4s;
+
+	transform-style: preserve-3d;
+	cursor: pointer;
+}
+
+.card:hover {
+	box-shadow: 0 0 0 2px #250001, 0 0 0 8px #f3f3f3;
+}
+
+.card.flipped {
+	transform: scale(-1, 1);
+	cursor: default;
+}
+
+.card img {
+	opacity: 0;
+	transition-delay: 0.1s;
+	transition-duration: 0;
+}
+
+.card.flipped img {
+	opacity: 1;
+}
+
+.card.found {
+	cursor: default;
+}
+
+.card.found::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 150px;
+	height: 150px;
+	border-radius: 20px;
+	box-shadow: 0 0 0 2px black;
+	background-color: rgba(0, 0, 0, 0.276);
+}
+
+.card.found:hover,
+.card.flipped:hover {
+	box-shadow: 0 0 0 2px #250001;
+}
