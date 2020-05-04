@@ -119,8 +119,8 @@ class CardBoard extends Component {
 				if (this.state.found.length + 2 === this.props.size ** 2) {
 					const successsound = new Audio("sound/success.wav");
 					successsound.play();
-				} else {
 					this.stopTimer();
+				} else {
 					const pairfoundsound = new Audio("sound/pair_found.wav");
 					pairfoundsound.play();
 				}
