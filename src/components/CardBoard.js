@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Card from "./Card";
+import { images as IMAGES } from "../imagewordlist.json";
 
 class CardBoard extends Component {
 	constructor(props) {
@@ -60,8 +61,12 @@ class CardBoard extends Component {
 			}
 
 			pairs[pOne] = pTwo;
-			imagePairs[pOne] = images[imageIndex];
-			imagePairs[pTwo] = images[imageIndex];
+			try {
+				imagePairs[pOne] = images[imageIndex].word;
+				imagePairs[pTwo] = images[imageIndex].img;
+			} catch (err) {
+				console.log(err, imageIndex, images, picks, index);
+			}
 			picks = picks.filter(id => id !== pOne).filter(id => id !== pTwo); // deleting the selected pTwo from picks
 
 			if (index > picks.length) index = 0;
@@ -73,8 +78,9 @@ class CardBoard extends Component {
 
 	createImgList = size => {
 		let imgs = [];
-		let picks = [...new Array(size ** 2)].map((x, index) => index + 1);
-		while (imgs.length < size ** 2 / 2) {
+		let picks = [...IMAGES];
+		console.log("image list", size ** 2 / 2);
+		while (imgs.length <= size ** 2 / 2) {
 			let randomIndex = 1;
 			let pick;
 			while (true) {
@@ -87,7 +93,6 @@ class CardBoard extends Component {
 			imgs.push(pick);
 			picks = picks.filter(x => x !== pick);
 		}
-
 		return imgs;
 	};
 
@@ -97,7 +102,9 @@ class CardBoard extends Component {
 			cards.push([...new Array(size)].map((card, colIndex) => colIndex + size * index));
 		}
 		const images = this.createImgList(size);
+		console.log(images);
 		const { pairs, imagePairs } = this.createPairs(cards, images);
+		console.log(pairs, imagePairs);
 		this.setState({ cards, pairs, imagePairs });
 	};
 
@@ -172,7 +179,7 @@ class CardBoard extends Component {
 								{row.map(id => (
 									<Card
 										selectable={this.state.selectable}
-										imageIndex={this.state.imagePairs[id]}
+										backData={this.state.imagePairs[id]}
 										found={this.isFound(id)}
 										id={id}
 										key={id}
