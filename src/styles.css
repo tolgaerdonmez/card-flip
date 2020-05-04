@@ -17,6 +17,38 @@ body {
 	align-items: center;
 }
 
+.button {
+	background-color: #f3f3f3;
+	box-shadow: 0 0 0 2px black;
+	width: 100px;
+	height: 30px;
+	border-style: none;
+	border-radius: 15px;
+
+	transition-duration: 0.2s;
+	cursor: pointer;
+}
+
+.button:hover {
+	background-color: #bfbfbf;
+}
+
+.start-button {
+	width: 5em;
+	height: 2em;
+	font-size: 5em;
+}
+
+.timer {
+	position: absolute;
+	top: 0;
+	left: 50px;
+}
+
+.timer p {
+	font-size: 2em;
+}
+
 .cards {
 	width: 100vw;
 	display: flex;
@@ -48,22 +80,6 @@ body {
 	border-radius: 20px;
 	box-shadow: 0 0 20px black;
 	z-index: 1000;
-}
-
-.finish-message button {
-	background-color: #f3f3f3;
-	box-shadow: 0 0 0 2px black;
-	width: 100px;
-	height: 30px;
-	border-style: none;
-	border-radius: 15px;
-
-	transition-duration: 0.2s;
-	cursor: pointer;
-}
-
-.finish-message button:hover {
-	background-color: #bfbfbf;
 }
 
 .row {

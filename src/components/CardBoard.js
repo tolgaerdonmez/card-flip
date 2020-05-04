@@ -14,12 +14,32 @@ class CardBoard extends Component {
 			pairs: {},
 			imagePairs: [],
 			found: [],
+			time: 0,
+			start: 0,
 		};
 	}
 
 	componentDidMount() {
 		this.createCards(this.props.size ? this.props.size : 4);
 	}
+
+	startTimer = () => {
+		this.setState({
+			time: this.state.time,
+			start: Date.now(),
+		});
+		this.timer = setInterval(
+			() =>
+				this.setState({
+					time: Date.now() - this.state.start,
+				}),
+			1
+		);
+	};
+
+	stopTimer = () => {
+		clearInterval(this.timer);
+	};
 
 	createPairs = (cards, images) => {
 		let pairs = {};
@@ -77,7 +97,7 @@ class CardBoard extends Component {
 		}
 		const images = this.createImgList(size);
 		const { pairs, imagePairs } = this.createPairs(cards, images);
-		this.setState({ cards, pairs, imagePairs, ready: true });
+		this.setState({ cards, pairs, imagePairs });
 	};
 
 	isFound = id => {
@@ -98,6 +118,7 @@ class CardBoard extends Component {
 					const successsound = new Audio("sound/success.wav");
 					successsound.play();
 				} else {
+					this.stopTimer();
 					const pairfoundsound = new Audio("sound/pair_found.wav");
 					pairfoundsound.play();
 				}
@@ -122,9 +143,11 @@ class CardBoard extends Component {
 			<>
 				{this.state.finished ? (
 					<div class="finish-message">
-						<h1>Success</h1>
+						<h1>Success </h1>
+						<p>Finished in {(this.state.time / 1000).toString()} seconds</p>
 						<p>Want to play again ?</p>
 						<button
+							className="button"
 							onClick={() => {
 								window.location.reload();
 							}}>
@@ -132,21 +155,33 @@ class CardBoard extends Component {
 						</button>
 					</div>
 				) : null}
+				<div className="timer">
+					<p>Timer: {(this.state.time / 1000).toString().split(".")[0]}</p>
+				</div>
 				<div className={`cards ${this.state.finished ? "finished" : ""}`}>
-					{this.state.ready
-						? this.state.cards.map((row, rowIndex) => (
-								<div key={rowIndex} className="row">
-									{row.map(id => (
-										<Card
-											imageIndex={this.state.imagePairs[id]}
-											found={this.isFound(id)}
-											id={id}
-											key={id}
-											selectCard={this.selectCard}></Card>
-									))}
-								</div>
-						  ))
-						: "Setting the game up!!"}
+					{this.state.ready ? (
+						this.state.cards.map((row, rowIndex) => (
+							<div key={rowIndex} className="row">
+								{row.map(id => (
+									<Card
+										imageIndex={this.state.imagePairs[id]}
+										found={this.isFound(id)}
+										id={id}
+										key={id}
+										selectCard={this.selectCard}></Card>
+								))}
+							</div>
+						))
+					) : (
+						<button
+							className="button start-button"
+							onClick={() => {
+								this.setState({ ready: true });
+								this.startTimer();
+							}}>
+							Start
+						</button>
+					)}
 				</div>
 			</>
 		);
