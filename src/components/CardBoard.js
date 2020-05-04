@@ -11,6 +11,7 @@ class CardBoard extends Component {
 			cards: [],
 			firstSelected: null,
 			deselect: null,
+			selectable: true,
 			pairs: {},
 			imagePairs: [],
 			found: [],
@@ -109,6 +110,7 @@ class CardBoard extends Component {
 	selectCard = (id, deselect) => {
 		if (this.state.firstSelected === null) this.setState({ firstSelected: id, deselect });
 		else {
+			this.setState({ selectable: false });
 			if (
 				this.state.pairs[this.state.firstSelected] === id ||
 				this.state.pairs[id] === this.state.firstSelected
@@ -126,13 +128,18 @@ class CardBoard extends Component {
 					// add them to founds
 					let { found } = prevState;
 					found = [...found, this.state.firstSelected, id];
-					return { found, firstSelected: null, finished: found.length === this.props.size ** 2 };
+					return {
+						found,
+						firstSelected: null,
+						finished: found.length === this.props.size ** 2,
+						selectable: true,
+					};
 				});
 			} else {
 				setTimeout(() => {
 					deselect();
 					if (this.state.deselect) this.state.deselect();
-					this.setState({ firstSelected: null, deselect: null });
+					this.setState({ firstSelected: null, deselect: null, selectable: true });
 				}, 1000);
 			}
 		}
@@ -164,6 +171,7 @@ class CardBoard extends Component {
 							<div key={rowIndex} className="row">
 								{row.map(id => (
 									<Card
+										selectable={this.state.selectable}
 										imageIndex={this.state.imagePairs[id]}
 										found={this.isFound(id)}
 										id={id}

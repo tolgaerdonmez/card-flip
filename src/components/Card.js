@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function Card({ id, selectCard, found, imageIndex }) {
+function Card({ id, selectCard, found, imageIndex, selectable }) {
 	const [flipped, flip] = useState(false);
 	const [isFound, setFound] = useState(false);
 
@@ -13,9 +13,11 @@ function Card({ id, selectCard, found, imageIndex }) {
 	return (
 		<>
 			<div
-				className={`card ${flipped || isFound ? "flipped" : ""} ${isFound ? "found" : ""}`}
+				className={`card ${flipped || isFound ? "flipped" : ""} ${isFound ? "found" : ""} ${
+					selectable ? "selectable" : ""
+				}`}
 				onClick={
-					!isFound && !flipped
+					!isFound && !flipped && selectable
 						? () => {
 								selectCard(id, () => {
 									flip(false);
