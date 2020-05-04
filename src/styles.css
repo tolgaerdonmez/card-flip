@@ -89,13 +89,16 @@ body {
 	cursor: pointer;
 }
 
+.card img {
+	width: 150px;
+}
+
 .card:hover {
 	box-shadow: 0 0 0 2px #250001, 0 0 0 8px #f3f3f3;
 }
 
 .card.flipped {
 	transform: scale(-1, 1);
-	cursor: default;
 }
 
 .card img {
