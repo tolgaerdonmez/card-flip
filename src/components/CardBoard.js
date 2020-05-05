@@ -65,7 +65,7 @@ class CardBoard extends Component {
 				imagePairs[pOne] = images[imageIndex].word;
 				imagePairs[pTwo] = images[imageIndex].img;
 			} catch (err) {
-				console.log(err, imageIndex, images, picks, index);
+				console.log(err);
 			}
 			picks = picks.filter(id => id !== pOne).filter(id => id !== pTwo); // deleting the selected pTwo from picks
 
@@ -79,7 +79,6 @@ class CardBoard extends Component {
 	createImgList = size => {
 		let imgs = [];
 		let picks = [...IMAGES];
-		console.log("image list", size ** 2 / 2);
 		while (imgs.length <= size ** 2 / 2) {
 			let randomIndex = 1;
 			let pick;
@@ -102,9 +101,8 @@ class CardBoard extends Component {
 			cards.push([...new Array(size)].map((card, colIndex) => colIndex + size * index));
 		}
 		const images = this.createImgList(size);
-		console.log(images);
 		const { pairs, imagePairs } = this.createPairs(cards, images);
-		console.log(pairs, imagePairs);
+
 		this.setState({ cards, pairs, imagePairs });
 	};
 

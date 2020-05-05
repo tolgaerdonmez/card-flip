@@ -1,0 +1,30 @@
+/* 
+yellow #fcba04
+claret red #250001
+dark red #6b0f1a
+red #8f250c
+gray-white #f3f3f3
+*/
+
+@media (max-width: 750px) {
+	.container {
+		width: 100vw;
+	}
+	.card {
+		height: 20vw;
+		width: 20vw;
+		margin: 2vw;
+	}
+	.back-img {
+		width: 20vw;
+		padding: 0;
+		border-radius: 5px;
+	}
+	.back-text {
+		font-size: 1.4em;
+	}
+	.start-button {
+		width: 80vw;
+		background-color: #6b0f1a;
+	}
+}

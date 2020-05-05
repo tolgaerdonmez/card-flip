@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./styles.css";
+import "./mobile.css";
 
 import CardBoard from "./components/CardBoard";
 
