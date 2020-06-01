@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Card from "./Card";
-import { images as IMAGES } from "../imagewordlist.json";
+import WORDS from "../wordlist.json";
+import GetImages from "../api/GetImages";
 
 class CardBoard extends Component {
 	constructor(props) {
@@ -78,7 +79,7 @@ class CardBoard extends Component {
 
 	createImgList = size => {
 		let imgs = [];
-		let picks = [...IMAGES];
+		let picks = [...WORDS];
 		while (imgs.length <= size ** 2 / 2) {
 			let randomIndex = 1;
 			let pick;
@@ -100,10 +101,12 @@ class CardBoard extends Component {
 		for (let index = 0; index < size; index++) {
 			cards.push([...new Array(size)].map((card, colIndex) => colIndex + size * index));
 		}
-		const images = this.createImgList(size);
-		const { pairs, imagePairs } = this.createPairs(cards, images);
+		const words = this.createImgList(size);
+		GetImages(words).then(({ images }) => {
+			const { pairs, imagePairs } = this.createPairs(cards, images);
 
-		this.setState({ cards, pairs, imagePairs });
+			this.setState({ cards, pairs, imagePairs });
+		});
 	};
 
 	isFound = id => {
@@ -154,7 +157,7 @@ class CardBoard extends Component {
 		return (
 			<>
 				{this.state.finished ? (
-					<div class="finish-message">
+					<div className="finish-message">
 						<h1>Success </h1>
 						<p>Finished in {(this.state.time / 1000).toString()} seconds</p>
 						<p>Want to play again ?</p>
